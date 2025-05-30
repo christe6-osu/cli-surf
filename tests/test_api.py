@@ -102,7 +102,7 @@ def test_get_uv_mocked(
     mock_response.json = Mock(return_value=json_data_uv)
 
     # Mock the 'requests.get' method
-    mock_requests = mocker.patch("requests.get", return_value=mock_response)
+    mock_requests = mocker.patch("openmeteo_requests.Client", return_value=mock_response)
 
     # Act: Call the function
     uv = get_uv(37, 122, 2)
