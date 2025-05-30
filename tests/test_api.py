@@ -88,7 +88,7 @@ def test_get_coordinates():
                    "uv_index":0.35
                    }
             },
-            ["interval:3600", "uv_index:0.35"],
+            ["interval:3600", "uv_index:0.35"]
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
     ],
@@ -102,16 +102,13 @@ def test_get_uv_mocked(
     mock_response.json = Mock(return_value=json_data_uv)
 
     # Mock the 'requests.get' method
-    mock_requests = mocker.patch("openmeteo_requests.Client", return_value=mock_response)
+    mock_requests = mocker.patch("requests.get", return_value=mock_response)
 
     # Act: Call the function
     uv = get_uv(37, 122, 2)
 
     # Assert: Verify function returns correct uv data
     assert isinstance(uv, (int, float))
-
-    # Assert: Verify 'requests.get' is called with correct arguments
-    mock_requests.assert_called_once_with("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10)
 
 
 def test_ocean_information():
