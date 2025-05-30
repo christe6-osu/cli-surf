@@ -107,7 +107,7 @@ def test_get_uv_mocked(
     # Act: Call the function
     uv = get_uv(37, 122, 2)
 
-    # Assert: Verify function returns correct location data
+    # Assert: Verify function returns correct uv data
     assert uv == expected_result_uv
 
     # Assert: Verify 'requests.get' is called with correct arguments
