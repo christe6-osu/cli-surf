@@ -33,6 +33,7 @@ from src.helper import arguments_dictionary
             ["43.03", "-72.001", "New York"],
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
+        (HTTPStatus.)
     ],
 )
 def test_default_location_mocked(
@@ -62,7 +63,7 @@ def test_get_coordinates(mocker):
     mock_response.longitude = 122.03
     mock_response.raw = {"name", "Santa Cruz"}
 
-    mocker.patch("src.api.geopy.geocoders.Nominatim.geocode", return_value=mock_response)
+    mocker.patch("src.api.Nominatim.geocode", return_value=mock_response)
 
     coordinates = get_coordinates(["loc=santa_cruz"])
     lat = coordinates[0]
