@@ -83,6 +83,9 @@ def get_uv(lat, long, decimal, unit="imperial"):
         responses = openmeteo.weather_api(url, params=params)
     except ValueError:
         return "No data"
+    
+    print(responses)
+
 
     response = responses[0]
 
