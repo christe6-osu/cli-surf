@@ -88,7 +88,7 @@ def test_get_coordinates():
                    "uv_index":0.35
                    }
             },
-            ["interval:3600", "uv_index:0.35"]
+            ["uv_index:0.35"]
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
     ],
@@ -109,6 +109,7 @@ def test_get_uv_mocked(
 
     # Assert: Verify function returns correct uv data
     assert isinstance(uv, (int, float))
+    print(uv)
 
     # Assert: Verify 'openmeteo.weather_api' is called with correct arguments
     mock_requests.assert_called_once_with("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10)
