@@ -9,8 +9,8 @@ import numpy as np
 import openmeteo_requests
 import pandas as pd
 import requests
-import requests_cache
 from requests.exceptions import Timeout
+import requests_cache
 from geopy.geocoders import Nominatim
 from retry_requests import retry
 
