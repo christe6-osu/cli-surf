@@ -97,7 +97,7 @@ def test_get_uv_mocked(
     mocker, status_code_uv, json_data_uv, expected_result_uv
 ):
     # Arrange: Mock the response from the API
-    mock_response = mocker.MagicMock()
+    mock_response = MagicMock()
     mock_response.status_code = status_code_uv
     mock_response.json = MagicMock(return_value=json_data_uv)
 
