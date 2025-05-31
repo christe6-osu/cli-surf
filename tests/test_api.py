@@ -5,10 +5,10 @@ Run pytest: pytest
 """
 
 from http import HTTPStatus
-from requests.exceptions import Timeout
 from unittest.mock import Mock, patch
 
 import pytest
+from requests.exceptions import Timeout
 from openmeteo_requests.Client import OpenMeteoRequestsError
 
 from src.api import (
