@@ -96,22 +96,25 @@ def test_get_coordinates():
 def test_get_uv_mocked(
     mocker, status_code_uv, json_data_uv, expected_result_uv
 ):
+    # Mock API client
+    mock_client = mocker.Mock()
+
     # Arrange: Mock the response from the API
-    mock_response = Mock()
+    mock_response = mocker.Mock()
     mock_response.status_code = status_code_uv
     mock_response.json = Mock(return_value=json_data_uv)
 
-    # Mock the 'requests.get' method
-    mock_requests = mocker.patch("openmeteo_requests.weather_api", return_value=mock_response)
+    # Set mock API client to return mocked response
+    mock_client.get.return_value = mock_response
 
-    # Act: Call the function
-    uv = get_uv(37, 122, 2)
+    # Act: Call the function with mock API client
+    uv = get_uv(mock_client)
 
     # Assert: Verify function returns correct uv data
     assert isinstance(uv, (int, float))
 
     # Assert: Verify 'openmeteo.weather_api' is called with correct arguments
-    mock_requests.assert_called_once_with("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10)
+    mock_client.assert_called_once_with("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10)
 
 
 def test_ocean_information():
