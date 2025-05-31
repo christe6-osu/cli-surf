@@ -88,7 +88,7 @@ def test_get_coordinates():
                    "uv_index":0.35
                    }
             },
-            ["uv_index:0.35"]
+            0.35
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
     ],
