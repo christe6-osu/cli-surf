@@ -75,8 +75,8 @@ def test_get_coordinates():
                "generationtime_ms":0.06592273712158203,
                "utc_offset_seconds":0,
                "timezone":"GMT",
-               "timezone_abbreviation":
-               "GMT","elevation":2.0,
+               "timezone_abbreviation":"GMT",
+               "elevation":2.0,
                "current_units":{
                    "time":"iso8601",
                    "interval":"seconds",
@@ -102,7 +102,7 @@ def test_get_uv_mocked(
     mock_response.json = Mock(return_value=json_data_uv)
 
     # Mock the 'requests.get' method
-    mock_requests = mocker.patch("weather_api", return_value=mock_response)
+    mock_requests = mocker.patch("openmeteo_requests.weather_api", return_value=mock_response)
 
     # Act: Call the function
     uv = get_uv(37, 122, 2)
