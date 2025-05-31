@@ -64,8 +64,7 @@ def test_default_location_timeout_mocked(self, mocker):
     
     result = default_location()
 
-    self.assertEqual(result, "No data")
-
+    assert result == "No data"
 
 
 def test_get_coordinates():
