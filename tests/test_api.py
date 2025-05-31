@@ -108,8 +108,7 @@ def test_get_uv_mocked(
     uv = get_uv(37, 122, 2)
 
     # Assert: Verify function returns correct uv data
-    assert isinstance(uv, (int, float))
-    print(uv)
+    assert uv == expected_result_uv
 
     # Assert: Verify 'openmeteo.weather_api' is called with correct arguments
     mock_requests.assert_called_once_with("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10)
