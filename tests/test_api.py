@@ -69,7 +69,7 @@ def test_get_coordinates():
     [
         (
             HTTPStatus.OK,
-            {
+            [{
                "latitude": 37.0,
                "longitude": 122.0,
                "generationtime_ms": 0.06592273712158203,
@@ -87,7 +87,7 @@ def test_get_coordinates():
                    "interval": 3600,
                    "uv_index": 4.3
                    }
-            },
+            }],
             4.3
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
