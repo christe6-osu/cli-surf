@@ -62,9 +62,14 @@ def test_default_location_timeout_mocked(self, mocker):
     # Set side effect to raise exception
     mocker.side_effect = Timeout("Test timeout")
     
+    # Call the function
     result = default_location()
 
+    # Assert: Verify function returns "No data"
     assert result == "No data"
+
+    # Assert: Verify 'requests.get' called once with correct arguyments
+    mocker.assert_called_once_with("https://ipinfo.io/json", timeout=10)
 
 
 def test_get_coordinates():
