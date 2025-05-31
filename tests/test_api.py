@@ -7,8 +7,8 @@ Run pytest: pytest
 from http import HTTPStatus
 from unittest.mock import Mock, patch
 
-import pytest
 from openmeteo_requests.Client import OpenMeteoRequestsError
+import pytest
 from requests.exceptions import Timeout
 
 from src.api import (
