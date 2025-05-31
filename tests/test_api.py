@@ -5,8 +5,8 @@ Run pytest: pytest
 """
 
 from http import HTTPStatus
-from unittest.mock import Mock, patch
 from requests.exceptions import Timeout
+from unittest.mock import Mock, patch
 
 import pytest
 from openmeteo_requests.Client import OpenMeteoRequestsError
@@ -58,10 +58,10 @@ def test_default_location_mocked(
 
 
 @patch("requests.get")
-def test_default_location_timeout_mocked(self, mocker):
+def test_default_location_timeout_mocked(mocker):
     # Set side effect to raise exception
     mocker.side_effect = Timeout("Test timeout")
-    
+
     # Call the function
     result = default_location()
 
