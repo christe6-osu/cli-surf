@@ -56,14 +56,13 @@ def test_default_location_mocked(
     mock_requests.assert_called_once_with("https://ipinfo.io/json", timeout=10)
 
 
-@Mock.patch("src.api.geopy.geocoders.Nominatim.geocode")
-def test_get_coordinates(mocked_object):
+def test_get_coordinates(mocker):
     mock_response = Mock()
     mock_response.latitude = 36.97
     mock_response.longitude = 122.03
     mock_response.raw = {"name", "Santa Cruz"}
 
-    mocked_object.return_value = mock_response
+    mocker.patch("src.api.geopy.geocoders.Nominatim.geocode", return_value=mock_response)
 
     coordinates = get_coordinates(["loc=santa_cruz"])
     lat = coordinates[0]
