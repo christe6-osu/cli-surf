@@ -101,8 +101,8 @@ def test_get_uv_mocked(
     mock_response.status_code = status_code_uv
     mock_response.json = Mock(return_value=json_data_uv)
 
-    # Mock the 'requests.get' method
-    mock_requests = mocker.patch("openmeteo_requests.Client.weather_api", return_value=mock_response)
+    # Mock the 'weather_api' method
+    mock_requests = mocker.patch("get_uv.openmeteo_requests.Client.weather_api", return_value=mock_response)
 
     # Act: Call the function
     uv = get_uv(37, 122, 2)
