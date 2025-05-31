@@ -6,6 +6,7 @@ Run pytest: pytest
 
 from http import HTTPStatus
 from unittest.mock import Mock, patch
+from requests.exceptions import Timeout
 
 import pytest
 from openmeteo_requests.Client import OpenMeteoRequestsError
@@ -54,6 +55,17 @@ def test_default_location_mocked(
 
     # Assert: Verify 'requests.get' is called with correct arguments
     mock_requests.assert_called_once_with("https://ipinfo.io/json", timeout=10)
+
+
+@patch("requests.get")
+def test_default_location_timeout_mocked(self, mocker):
+    # Set side effect to raise exception
+    mocker.side_effect = Timeout("Test timeout")
+    
+    result = default_location()
+
+    self.assertEqual(result, "No data")
+
 
 
 def test_get_coordinates():

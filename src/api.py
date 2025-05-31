@@ -10,6 +10,7 @@ import openmeteo_requests
 import pandas as pd
 import requests
 import requests_cache
+from requests.exceptions import Timeout
 from geopy.geocoders import Nominatim
 from retry_requests import retry
 
@@ -50,16 +51,21 @@ def default_location():
     If no location specified in cli, find user's location
     Make a GET request to the API endpoint
     """
-    response = requests.get("https://ipinfo.io/json", timeout=10)
+    try:
+        response = requests.get("https://ipinfo.io/json", timeout=10)
 
-    if response.status_code == HTTPStatus.OK:
-        data = response.json()
-        location = data["loc"].split(",")
-        lat = location[0]
-        long = location[1]
-        city = data["city"]
-        return [lat, long, city]
-    return "No data"
+        response.raise_for_status()
+
+        if response.status_code == HTTPStatus.OK:
+            data = response.json()
+            location = data["loc"].split(",")
+            lat = location[0]
+            long = location[1]
+            city = data["city"]
+            return [lat, long, city]
+        return "No data"
+    except Timeout:
+        return "No data"
 
 
 def get_uv(lat, long, decimal, unit="imperial"):
