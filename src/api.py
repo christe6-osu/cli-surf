@@ -5,13 +5,12 @@ Functions that make API calls stored here
 from datetime import datetime, timedelta
 from http import HTTPStatus
 
-from geopy.geocoders import Nominatim
 import numpy as np
 import openmeteo_requests
 import pandas as pd
 import requests
-from requests.exceptions import Timeout
 import requests_cache
+from geopy.geocoders import Nominatim
 from retry_requests import retry
 
 from src import helper
@@ -64,7 +63,7 @@ def default_location():
             city = data["city"]
             return [lat, long, city]
         return "No data"
-    except Timeout:
+    except requests.exceptions.Timeout:
         return "No data"
 
 
