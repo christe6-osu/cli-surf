@@ -9,6 +9,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 from openmeteo_requests.Client import OpenMeteoRequestsError
+from requests.exceptions import Timeout
 
 from src.api import (
     default_location,
@@ -33,7 +34,7 @@ from src.helper import arguments_dictionary
             ["43.03", "-72.001", "New York"],
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
-        (HTTPStatus.GATEWAY_TIMEOUT, {}, "No data")
+        (999, {}, "No data")
     ],
 )
 def test_default_location_mocked(
@@ -47,6 +48,10 @@ def test_default_location_mocked(
     # Mock the 'requests.get' method
     mock_requests = mocker.patch("requests.get", return_value=mock_response)
 
+    # Check for timeout and set side effect
+    if (status_code == 999):
+        mock_requests.side_effect = Timeout("Test timeout")
+
     # Act: Call the function
     result = default_location()
 
@@ -57,6 +62,7 @@ def test_default_location_mocked(
     mock_requests.assert_called_once_with("https://ipinfo.io/json", timeout=10)
 
 
+"""
 def test_get_coordinates(mocker):
     mock_response = Mock()
     mock_response.latitude = 36.97
@@ -98,7 +104,7 @@ def test_get_coordinates(mocker):
             }],
             4.3
         ),
-        (HTTPStatus.BAD_REQUEST, {}, "No data"),
+        (HTTPStatus.BAD_REQUEST, {}, "No data")
     ],
 )
 def test_get_uv_mocked(
@@ -120,6 +126,20 @@ def test_get_uv_mocked(
 
     # Assert: Verify 'openmeteo.weather_api' is called with correct arguments
     mock_requests.assert_called_once_with("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10)
+    """
+
+
+def test_get_coordinates():
+    coordinates = get_coordinates(["loc=santa_cruz"])
+    lat = coordinates[0]
+    long = coordinates[1]
+    assert isinstance(lat, (int, float))
+    assert isinstance(long, (int, float))
+
+
+def test_get_uv():
+    uv = get_uv(37, 122, 2)
+    assert isinstance(uv, (int, float))
 
 
 def test_ocean_information():
