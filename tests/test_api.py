@@ -50,7 +50,7 @@ def test_default_location_mocked(
     mock_requests = mocker.patch("requests.get", return_value=mock_response)
 
     # Check for timeout and set side effect
-    if (status_code == 999):
+    if (status_code == HTTPTIMEOUT):
         mock_requests.side_effect = Timeout("Test timeout")
 
     # Act: Call the function
