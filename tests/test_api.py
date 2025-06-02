@@ -34,7 +34,7 @@ from src.helper import arguments_dictionary
             ["43.03", "-72.001", "New York"],
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
-        (Timeout, {}, "No data")
+        (Timeout, {}, "No data"),
     ],
 )
 def test_default_location_mocked(
