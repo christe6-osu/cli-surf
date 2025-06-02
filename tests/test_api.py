@@ -23,8 +23,6 @@ from src.api import (
 )
 from src.helper import arguments_dictionary
 
-HTTPTIMEOUT = 999
-
 
 @pytest.mark.parametrize(
     ("status_code", "json_data", "expected_result"),
@@ -35,7 +33,7 @@ HTTPTIMEOUT = 999
             ["43.03", "-72.001", "New York"],
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
-        (HTTPTIMEOUT, {}, "No data")
+        (Timeout, {}, "No data")
     ],
 )
 def test_default_location_mocked(
@@ -50,7 +48,7 @@ def test_default_location_mocked(
     mock_requests = mocker.patch("requests.get", return_value=mock_response)
 
     # Check for timeout and set side effect
-    if (status_code == HTTPTIMEOUT):
+    if status_code == Timeout:
         mock_requests.side_effect = Timeout("Test timeout")
 
     # Act: Call the function
