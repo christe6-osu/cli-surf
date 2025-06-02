@@ -5,7 +5,7 @@ Run pytest: pytest
 """
 
 from http import HTTPStatus
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import Mock, patch
 
 import pytest
 from openmeteo_requests.Client import OpenMeteoRequestsError
@@ -116,7 +116,10 @@ def test_get_uv_mocked(
     mock_response.json = MagicMock(return_value=json_data_uv)
 
     # Mock the 'weather_api' method
-    mock_requests = mocker.patch("src.api.openmeteo_requests.Client.weather_api", return_value=mock_response)
+    mock_requests = mocker.patch(
+        "src.api.openmeteo_requests.Client.weather_api",
+        return_value=mock_response
+        )
 
     # Act: Call the function
     uv = get_uv(37, 122, 2)
@@ -125,7 +128,9 @@ def test_get_uv_mocked(
     assert isinstance(uv, (int, float))
 
     # Assert: Verify 'openmeteo.weather_api' is called with correct arguments
-    mock_requests.assert_called_once_with("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10)
+    mock_requests.assert_called_once_with(
+        "https://air-quality-api.open-meteo.com/v1/air-quality", timeout=10
+        )
     """
 
 
