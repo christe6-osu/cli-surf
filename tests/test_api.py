@@ -3,7 +3,6 @@ QA tests for api.py
 Make sure pytest is installed: pip install pytest
 Run pytest: pytest
 """
-
 from http import HTTPStatus
 from unittest.mock import Mock, patch
 
@@ -24,6 +23,8 @@ from src.api import (
 )
 from src.helper import arguments_dictionary
 
+HTTPTIMEOUT = 999
+
 
 @pytest.mark.parametrize(
     ("status_code", "json_data", "expected_result"),
@@ -34,7 +35,7 @@ from src.helper import arguments_dictionary
             ["43.03", "-72.001", "New York"],
         ),
         (HTTPStatus.BAD_REQUEST, {}, "No data"),
-        (999, {}, "No data")
+        (HTTPTIMEOUT, {}, "No data")
     ],
 )
 def test_default_location_mocked(
