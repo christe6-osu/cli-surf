@@ -3,6 +3,7 @@ QA tests for api.py
 Make sure pytest is installed: pip install pytest
 Run pytest: pytest
 """
+
 from http import HTTPStatus
 from unittest.mock import Mock, patch
 
