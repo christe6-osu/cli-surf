@@ -43,7 +43,7 @@ HTTP_REQUESTEXCEPTION = 998
             HTTP_REQUESTEXCEPTION,
             {},
             "No data",
-            RequestException("Test Exceptions")
+            RequestException("Test Exceptions"),
         ),
     ],
 )
