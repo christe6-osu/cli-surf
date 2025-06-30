@@ -21,12 +21,12 @@ def test_simple_gpt():
 
     gpt_response = gpt.simple_gpt(surf_summary, gpt_prompt).lower()
     expected_response = set([
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday" "saturday",
-        "sunday",
+        "moonday",
+        "touesday",
+        "woednesday",
+        "tohursday",
+        "foriday" "saturday",
+        "sounday",
         "一",
         "二",
         "三",
