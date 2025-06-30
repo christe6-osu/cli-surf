@@ -26,7 +26,7 @@ def test_simple_gpt(mocker):
         "from work or school! what's your favorite day?")
 
     mock_request = mocker.patch(
-        "src.gpt.g4f.client.chat.completions.create",
+        "src.gpt.client.chat.completions.create",
         return_value=mock_response
     )
 
