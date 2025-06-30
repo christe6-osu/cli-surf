@@ -4,10 +4,12 @@ Make sure pytest is installed: pip install pytest
 Run pytest: pytest
 """
 
+from unittest.mock import Mock
+
 from src import gpt
 
 
-def test_simple_gpt():
+def test_simple_gpt(mocker):
     """
     Testing the simple_gpt function
     Calls the simple gpt and asks it to output
@@ -15,18 +17,31 @@ def test_simple_gpt():
     any day of the week, we assume the gpt is non-fucntional
     """
 
+    mock_response = Mock(
+        return_value="here are the days of the week in english:\n\n"
+        "- monday\n- tuesday\n- wednesday\n- thursday\n"
+        "- friday\n - saturday\n- sunday\n\n"
+        "as an ai, i don't have personal preferences, but many people"
+        "enjoy saturday or sunday because they are typically days off "
+        "from work or school! what's your favorite day?")
+
+    mock_request = mocker.patch(
+        "src.gpt.g4f.client.chat.completions.create",
+        return_value=mock_response
+    )
+
     surf_summary = ""
     gpt_prompt = """Please output the days of the week in English. What day
         is your favorite?"""
 
     gpt_response = gpt.simple_gpt(surf_summary, gpt_prompt).lower()
     expected_response = set([
-        "moonday",
-        "touesday",
-        "woednesday",
-        "tohursday",
-        "foriday" "saturday",
-        "sounday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday" "saturday",
+        "sunday",
         "一",
         "二",
         "三",
@@ -41,3 +56,5 @@ def test_simple_gpt():
     assert gpt_response_set.intersection(
         expected_response
     ), f"Expected '{expected_response}', but got: {gpt_response}"
+
+    mock_request.assert_called_once()
