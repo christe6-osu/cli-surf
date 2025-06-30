@@ -23,11 +23,12 @@ def test_simple_gpt(mocker):
         "- friday\n - saturday\n- sunday\n\n"
         "as an ai, i don't have personal preferences, but many people"
         "enjoy saturday or sunday because they are typically days off "
-        "from work or school! what's your favorite day?")
+        "from work or school! what's your favorite day?"
+    )
 
     mock_request = mocker.patch(
-        "src.gpt.client.chat.completions.create",
-        return_value=mock_response
+        "src.gpt.simple_gpt",
+        return_value=mock_response,
     )
 
     surf_summary = ""
