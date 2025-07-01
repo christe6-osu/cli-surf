@@ -27,7 +27,7 @@ def test_simple_gpt(mocker):
     )
 
     mock_request = mocker.patch(
-        "g4f.client.chat.completions.create",
+        "src.gpt.chat.completions.create",
         return_value=mock_response.return_value,
     )
 
