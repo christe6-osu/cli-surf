@@ -27,7 +27,7 @@ def test_simple_gpt(mocker):
     )
 
     mock_request = mocker.patch(
-        "src.gpt.simple_gpt",
+        "gpt.simple_gpt",
         return_value=mock_response,
     )
 
