@@ -27,7 +27,7 @@ def test_simple_gpt(mocker):
     )
 
     mock_request = mocker.patch(
-        "src.gpt.client.create",
+        "gpt.client.create",
         return_value=mock_response.return_value,
     )
 
