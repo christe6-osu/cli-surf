@@ -27,7 +27,7 @@ def test_simple_gpt(mocker):
     )
 
     mock_request = mocker.patch(
-        "gpt.client.completions.create",
+        "gpt.completions.create",
         return_value=mock_response.return_value,
     )
 
