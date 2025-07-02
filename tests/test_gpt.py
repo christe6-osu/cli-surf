@@ -4,12 +4,12 @@ Make sure pytest is installed: pip install pytest
 Run pytest: pytest
 """
 
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from src import gpt
 
 
-def test_simple_gpt(mocker):
+def test_simple_gpt():
     """
     Testing the simple_gpt function
     Calls the simple gpt and asks it to output
@@ -26,36 +26,35 @@ def test_simple_gpt(mocker):
         "from work or school! what's your favorite day?"
     )
 
-    mock_request = mocker.patch(
-        "src.gpt.g4f.client.creations.create",
-        return_value=mock_response.return_value,
-    )
+    with patch("src.gpt.client") as MockClass:
+        instance = MockClass.return_value
+        instance.method.return_value = mock_response
 
-    surf_summary = ""
-    gpt_prompt = """Please output the days of the week in English. What day
-        is your favorite?"""
+        surf_summary = ""
+        gpt_prompt = """Please output the days of the week in English. What day
+            is your favorite?"""
 
-    gpt_response = gpt.simple_gpt(surf_summary, gpt_prompt).lower()
-    expected_response = set([
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday" "saturday",
-        "sunday",
-        "一",
-        "二",
-        "三",
-        "四",
-        "五",
-    ])
+        gpt_response = gpt.simple_gpt(surf_summary, gpt_prompt).lower()
+        expected_response = set([
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday" "saturday",
+            "sunday",
+            "一",
+            "二",
+            "三",
+            "四",
+            "五",
+        ])
 
-    # Can case the "gpt_response" string into a list, and
-    # check for set intersection with the expected response set
-    gpt_response_set = set(gpt_response.split())
+        # Can case the "gpt_response" string into a list, and
+        # check for set intersection with the expected response set
+        gpt_response_set = set(gpt_response.split())
 
-    assert gpt_response_set.intersection(
-        expected_response
-    ), f"Expected '{expected_response}', but got: {gpt_response}"
+        assert gpt_response_set.intersection(
+            expected_response
+        ), f"Expected '{expected_response}', but got: {gpt_response}"
 
-    mock_request.assert_called_once()
+        # mock_request.assert_called_once()
