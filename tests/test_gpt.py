@@ -26,7 +26,7 @@ def test_simple_gpt():
         "from work or school! what's your favorite day?"
     )
 
-    with patch("src.gpt.client.client") as MockClass:
+    with patch("gpt.client.client") as MockClass:
         instance = MockClass.return_value
         instance.method.return_value = mock_response
 
